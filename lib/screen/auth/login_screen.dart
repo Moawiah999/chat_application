@@ -1,3 +1,4 @@
+import 'package:chatapp/screen/auth/forgot_password.dart';
 import 'package:chatapp/screen/auth/registration_screen.dart';
 import 'package:chatapp/widget/auth_text_field.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       AuthTextField(
                         controller: emailController,
                         hintText: 'Email',
-                        icons: Icon(Icons.person, color: Color(0xFF00BFFF)),
+                        icons: Icon(Icons.email, color: Color(0xFF00BFFF)),
                       ),
                       SizedBox(height: 20),
                       AuthTextField(
@@ -87,10 +88,21 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       SizedBox(height: 20),
-                      Text(
-                        'Forgot password',
-                        style: TextStyle(
-                          color: const Color.fromARGB(255, 27, 152, 253),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return ForgotPassword();
+                              },
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Forgot password',
+                          style: TextStyle(
+                            color: const Color.fromARGB(255, 27, 152, 253),
+                          ),
                         ),
                       ),
                       SizedBox(height: 15),
