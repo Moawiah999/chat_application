@@ -68,7 +68,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           AuthTextField(
                             controller: emailController,
                             hintText: 'Email',
-                            icons: Icon(Icons.person, color: Color(0xFF00BFFF)),
+                            icons: Icon(Icons.email, color: Color(0xFF00BFFF)),
                           ),
                           SizedBox(height: 20),
                           AuthTextField(
@@ -90,10 +90,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 backgroundColor: Color(0xff0080E3),
                                 padding: EdgeInsets.symmetric(vertical: 15),
                               ),
-                              onPressed: () {
-                                print(emailController);
-                                print(passwordController);
-                              },
+                              onPressed: () {},
                               child: Text(
                                 'Sign Up',
                                 style: TextStyle(
