@@ -6,11 +6,13 @@ class AuthTextField extends StatelessWidget {
     required this.controller,
     required this.hintText,
     required this.icons,
+    required this.fieldName,
   });
 
   final TextEditingController controller;
   final String hintText;
   final Icon icons;
+  final String fieldName;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -22,7 +24,7 @@ class AuthTextField extends StatelessWidget {
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return "Name is required";
+          return "$fieldName is required";
         }
         if (value.length < 3) {
           return "Name must be at least 3 characters";

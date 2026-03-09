@@ -9,6 +9,8 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -57,51 +59,66 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Column(
-                        children: [
-                          AuthTextField(
-                            controller: nameController,
-                            hintText: 'Name',
-                            icons: Icon(Icons.person, color: Color(0xFF00BFFF)),
-                          ),
-                          SizedBox(height: 20),
-                          AuthTextField(
-                            controller: emailController,
-                            hintText: 'Email',
-                            icons: Icon(Icons.email, color: Color(0xFF00BFFF)),
-                          ),
-                          SizedBox(height: 20),
-                          AuthTextField(
-                            controller: passwordController,
-                            hintText: 'Password',
-                            icons: Icon(Icons.lock, color: Color(0xFF00BFFF)),
-                          ),
-                          SizedBox(height: 20),
-                          AuthTextField(
-                            controller: confirmPasswordController,
-                            hintText: 'Confirm Password',
-                            icons: Icon(Icons.lock, color: Color(0xFF00BFFF)),
-                          ),
-                          SizedBox(height: 20),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xff0080E3),
-                                padding: EdgeInsets.symmetric(vertical: 15),
+                      child: Form(
+                        key: formKey,
+                        child: Column(
+                          children: [
+                            AuthTextField(
+                              fieldName: 'Name',
+                              controller: nameController,
+                              hintText: 'Name',
+                              icons: Icon(
+                                Icons.person,
+                                color: Color(0xFF00BFFF),
                               ),
-                              onPressed: () {},
-                              child: Text(
-                                'Sign Up',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
+                            ),
+                            SizedBox(height: 20),
+                            AuthTextField(
+                              fieldName: 'Email',
+                              controller: emailController,
+                              hintText: 'Email',
+                              icons: Icon(
+                                Icons.email,
+                                color: Color(0xFF00BFFF),
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            AuthTextField(
+                              fieldName: 'Password',
+                              controller: passwordController,
+                              hintText: 'Password',
+                              icons: Icon(Icons.lock, color: Color(0xFF00BFFF)),
+                            ),
+                            SizedBox(height: 20),
+                            AuthTextField(
+                              fieldName: 'Confirm Password',
+                              controller: confirmPasswordController,
+                              hintText: 'Confirm Password',
+                              icons: Icon(Icons.lock, color: Color(0xFF00BFFF)),
+                            ),
+                            SizedBox(height: 20),
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color(0xff0080E3),
+                                  padding: EdgeInsets.symmetric(vertical: 15),
+                                ),
+                                onPressed: () {
+                                  if (formKey.currentState!.validate()) {}
+                                },
+                                child: Text(
+                                  'Sign Up',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          SizedBox(height: 15),
-                        ],
+                            SizedBox(height: 15),
+                          ],
+                        ),
                       ),
                     ),
                   ),

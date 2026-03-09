@@ -10,6 +10,7 @@ class ForgotPassword extends StatefulWidget {
 
 class _ForgotPasswordState extends State<ForgotPassword> {
   final TextEditingController emailController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +38,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 ],
               ),
               SizedBox(height: 70),
-              AuthTextField(
-                controller: emailController,
-                hintText: 'Enter your email',
-                icons: Icon(Icons.person, color: Color(0xFF00BFFF)),
+              Form(
+                key: formKey,
+                child: AuthTextField(
+                  fieldName: 'Email',
+                  controller: emailController,
+                  hintText: 'Enter your email',
+                  icons: Icon(Icons.person, color: Color(0xFF00BFFF)),
+                ),
               ),
               SizedBox(height: 40),
               SizedBox(
@@ -50,7 +55,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     backgroundColor: Color(0xff0080E3),
                     padding: EdgeInsets.symmetric(vertical: 15),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {}
+                  },
                   child: Text(
                     'Send the code',
                     style: TextStyle(color: Colors.white, fontSize: 16),
