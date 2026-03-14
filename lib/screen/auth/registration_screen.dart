@@ -1,5 +1,8 @@
+import 'package:chatapp/cubits/auth_cubits/auth_cubits.dart';
+import 'package:chatapp/cubits/auth_cubits/auth_user_state.dart';
 import 'package:chatapp/widget/auth_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -84,6 +87,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             ),
                             SizedBox(height: 20),
                             AuthTextField(
+                              obscureText: true,
                               fieldName: 'Password',
                               controller: passwordController,
                               hintText: 'Password',
@@ -91,30 +95,106 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             ),
                             SizedBox(height: 20),
                             AuthTextField(
+                              obscureText: true,
                               fieldName: 'Confirm Password',
                               controller: confirmPasswordController,
                               hintText: 'Confirm Password',
                               icons: Icon(Icons.lock, color: Color(0xFF00BFFF)),
                             ),
                             SizedBox(height: 20),
-                            SizedBox(
-                              width: double.infinity,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xff0080E3),
-                                  padding: EdgeInsets.symmetric(vertical: 15),
-                                ),
-                                onPressed: () {
-                                  if (formKey.currentState!.validate()) {}
-                                },
-                                child: Text(
-                                  'Sign Up',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
+                            BlocConsumer<AuthUserCubit, AuthState>(
+                              builder: (context, state) {
+                                return SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Color(0xff0080E3),
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: 15,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      if (formKey.currentState!.validate()) {
+                                        if (passwordController.text ==
+                                            confirmPasswordController.text) {
+                                          BlocProvider.of<AuthUserCubit>(
+                                            context,
+                                          ).registration(
+                                            name: nameController.text,
+                                            email: emailController.text,
+                                            password: passwordController.text,
+                                          );
+                                        } else {
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'Password is not same confirm password',
+                                              ),
+                                              duration: Duration(seconds: 2),
+                                            ),
+                                          );
+                                        }
+                                      }
+                                    },
+                                    child: state is AuthLoading
+                                        ? const SizedBox(
+                                            height: 20,
+                                            width: 20,
+                                            child: CircularProgressIndicator(
+                                              color: Colors.white,
+                                              strokeWidth: 2,
+                                            ),
+                                          )
+                                        : const Text(
+                                            'Sign Up',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                            ),
+                                          ),
                                   ),
-                                ),
-                              ),
+                                );
+                              },
+                              listener: (context, state) {
+                                if (state is AuthSuccessfulRegistration) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text('Success'),
+                                      content: const Text(
+                                        'User registered successfully',
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                              ..pop()
+                                              ..pop();
+                                          },
+                                          child: const Text('OK'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                } else if (state is AuthFailedRegistration) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text('Failed'),
+                                      content: Text('Registration failed'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.of(context).pop(),
+                                          child: const Text('OK'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }
+                              },
                             ),
                             SizedBox(height: 15),
                           ],
