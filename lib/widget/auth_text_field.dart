@@ -8,6 +8,7 @@ class AuthTextField extends StatefulWidget {
     required this.icons,
     required this.fieldName,
     this.obscureText = false,
+    this.keyboardType = TextInputType.text,
   });
 
   final TextEditingController controller;
@@ -15,7 +16,7 @@ class AuthTextField extends StatefulWidget {
   final Icon icons;
   final String fieldName;
   final bool obscureText;
-
+  final TextInputType keyboardType;
   @override
   State<AuthTextField> createState() => _AuthTextFieldState();
 }
@@ -31,6 +32,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: widget.keyboardType,
       obscureText: isObscure,
       controller: widget.controller,
       decoration: InputDecoration(

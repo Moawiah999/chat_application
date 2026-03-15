@@ -77,6 +77,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             ),
                             SizedBox(height: 20),
                             AuthTextField(
+                              keyboardType: TextInputType.emailAddress,
                               fieldName: 'Email',
                               controller: emailController,
                               hintText: 'Email',

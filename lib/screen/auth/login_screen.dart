@@ -62,6 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         SizedBox(height: 100),
                         AuthTextField(
+                          keyboardType: TextInputType.emailAddress,
                           fieldName: 'Email',
                           controller: emailController,
                           hintText: 'Email',
