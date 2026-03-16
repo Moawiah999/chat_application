@@ -1,7 +1,11 @@
+import 'package:chatapp/cubits/auth_cubits/auth_cubits.dart';
+import 'package:chatapp/cubits/auth_cubits/auth_user_state.dart';
 import 'package:chatapp/screen/auth/forgot_password.dart';
 import 'package:chatapp/screen/auth/registration_screen.dart';
+import 'package:chatapp/screen/home/home_screen.dart';
 import 'package:chatapp/widget/auth_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -77,24 +81,59 @@ class _LoginScreenState extends State<LoginScreen> {
                           icons: Icon(Icons.lock, color: Color(0xFF00BFFF)),
                         ),
                         SizedBox(height: 30),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xff0080E3),
-                              padding: EdgeInsets.symmetric(vertical: 15),
-                            ),
-                            onPressed: () {
-                              if (formKey.currentState!.validate()) {}
-                            },
-                            child: Text(
-                              'Login',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
+                        BlocConsumer<AuthUserCubit, AuthState>(
+                          listener: (context, state) {
+                            if (state is AuthSuccessfulLogin) {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (context) => HomeScreen(),
+                                ),
+                              );
+                            }
+                            else if (state is AuthInvalidCredentials) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Email or password incorrect'),
+                                ),
+                              );
+                            } else if (state is AuthUserNotFound) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('User not found')),
+                              );
+                            } else if (state is AuthFailedLogin) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Failed Login')),
+                              );
+                            }
+                          },
+                          builder: (context, state) {
+                            return SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color(0xff0080E3),
+                                  padding: EdgeInsets.symmetric(vertical: 15),
+                                ),
+                                onPressed: () {
+                                  if (formKey.currentState!.validate()) {
+                                    BlocProvider.of<AuthUserCubit>(
+                                      context,
+                                    ).login(
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                    );
+                                  }
+                                },
+                                child: Text(
+                                  'Login',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                          },
                         ),
                         SizedBox(height: 20),
                         GestureDetector(
