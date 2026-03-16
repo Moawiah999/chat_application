@@ -164,8 +164,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     context: context,
                                     builder: (context) => AlertDialog(
                                       title: const Text('Success'),
-                                      content: const Text(
-                                        'User registered successfully',
+                                      content: Column(
+                                        children: [
+                                          const Text(
+                                            'User registered successfully',
+                                          ),
+                                          const Text(
+                                            'Please log in now to user app',
+                                          ),
+                                        ],
                                       ),
                                       actions: [
                                         TextButton(
