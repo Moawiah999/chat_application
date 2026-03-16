@@ -12,6 +12,8 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  final List<String> gender = ['Male', 'Female'];
+  String? _selectedGender;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   final TextEditingController nameController = TextEditingController();
@@ -87,6 +89,30 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               ),
                             ),
                             SizedBox(height: 20),
+                            DropdownButtonFormField(
+                              decoration: InputDecoration(
+                                labelText: 'Choose gender',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                              // value: _selectedOption,
+                              items: gender.map((option) {
+                                return DropdownMenuItem(
+                                  value: option,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 22.0,
+                                    ),
+                                    child: Text(option),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                _selectedGender = value;
+                              },
+                            ),
+                            SizedBox(height: 20),
                             AuthTextField(
                               obscureText: true,
                               fieldName: 'Password',
@@ -116,6 +142,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     ),
                                     onPressed: () {
                                       if (formKey.currentState!.validate()) {
+                                        print('object');
+                                        print(_selectedGender);
                                         if (passwordController.text ==
                                             confirmPasswordController.text) {
                                           BlocProvider.of<AuthUserCubit>(
@@ -123,6 +151,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                           ).registration(
                                             name: nameController.text,
                                             email: emailController.text,
+                                            gender: _selectedGender,
                                             password: passwordController.text,
                                           );
                                         } else {
@@ -165,6 +194,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     builder: (context) => AlertDialog(
                                       title: const Text('Success'),
                                       content: Column(
+                                        mainAxisSize: MainAxisSize.min,
                                         children: [
                                           const Text(
                                             'User registered successfully',
