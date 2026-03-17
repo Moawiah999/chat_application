@@ -7,12 +7,18 @@ class AuthUserCubit extends Cubit<AuthState> {
   late UserModel userModel;
 
   AuthUserCubit() : super(AuthInitial());
-  registration({required name, required email, required password}) async {
+  registration({
+    required name,
+    required email,
+    required gender,
+    required password,
+  }) async {
     emit(AuthLoading());
     try {
       final result = await AuthUserServices().registrationUser(
         name: name,
         email: email,
+        gender: gender,
         password: password,
       );
       if (result['status'] == true) {

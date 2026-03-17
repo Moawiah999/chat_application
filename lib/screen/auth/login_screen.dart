@@ -89,8 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   builder: (context) => HomeScreen(),
                                 ),
                               );
-                            }
-                            else if (state is AuthInvalidCredentials) {
+                            } else if (state is AuthInvalidCredentials) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text('Email or password incorrect'),
@@ -124,13 +123,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                     );
                                   }
                                 },
-                                child: Text(
-                                  'Login',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                  ),
-                                ),
+                                child: state is AuthLoading
+                                    ? SizedBox(
+                                        height: 20,
+                                        width: 20,
+                                        child: CircularProgressIndicator(
+                                          color: Colors.white,
+                                          strokeWidth: 2,
+                                        ),
+                                      )
+                                    : Text(
+                                        'Login',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                        ),
+                                      ),
                               ),
                             );
                           },

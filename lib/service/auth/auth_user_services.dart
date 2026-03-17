@@ -5,11 +5,21 @@ import 'package:jwt_decode/jwt_decode.dart';
 
 class AuthUserServices {
   late UserModel userModel;
-  registrationUser({required name, required email, required password}) async {
+  registrationUser({
+    required name,
+    required email,
+    required gender,
+    required password,
+  }) async {
     try {
       Response response = await Dio().post(
         '${dotenv.env['Base_URL']}users/register',
-        data: {'name': name, 'email': email, 'password': password},
+        data: {
+          'name': name,
+          'email': email,
+          'gender': gender,
+          'password': password,
+        },
       );
       if (response.statusCode == 201) {
         return {'status': true, 'message': response.data['message']};
@@ -36,6 +46,7 @@ class AuthUserServices {
         userModel = UserModel(
           name: payload['name'],
           email: payload['email'],
+          gender: payload['gender'],
           token: token,
         );
         return userModel;
