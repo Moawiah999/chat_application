@@ -1,6 +1,7 @@
 import 'package:chatapp/screen/home/chat_screen.dart';
 import 'package:chatapp/screen/home/friends_screen.dart';
 import 'package:chatapp/screen/home/profile_screen.dart';
+import 'package:chatapp/screen/home/suggestions_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,9 +16,10 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _screens = [
     ChatScreen(),
     FriendsScreen(),
+    SuggestionsScreen(),
     ProfileScreen(),
   ];
-  final List<String> _titles = ['Chats', 'Friends', 'Profile'];
+  final List<String> _titles = ['Chats', 'Friends', 'Suggestions', 'Profile'];
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,10 @@ class _HomeScreenState extends State<HomeScreen> {
           NavigationDestination(
             icon: Icon(Icons.group, color: Color(0xFF00BFFF)),
             label: 'Friends',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.lightbulb_outline, color: Color(0xFF00BFFF)),
+            label: 'Suggestions',
           ),
           NavigationDestination(
             icon: Icon(Icons.person, color: Color(0xFF00BFFF)),
