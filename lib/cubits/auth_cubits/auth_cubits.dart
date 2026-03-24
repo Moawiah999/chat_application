@@ -1,10 +1,10 @@
 import 'package:chatapp/cubits/auth_cubits/auth_user_state.dart';
-import 'package:chatapp/models/user_model.dart';
+import 'package:chatapp/models/auth_model.dart';
 import 'package:chatapp/service/auth/auth_user_services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthUserCubit extends Cubit<AuthState> {
-  late UserModel userModel;
+  late AuthModel authModel;
 
   AuthUserCubit() : super(AuthInitial());
   registration({
@@ -35,7 +35,7 @@ class AuthUserCubit extends Cubit<AuthState> {
     emit(AuthLoading());
 
     try {
-      userModel = await AuthUserServices().loginUser(
+      authModel = await AuthUserServices().loginUser(
         email: email,
         password: password,
       );

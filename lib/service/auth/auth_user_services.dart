@@ -1,10 +1,10 @@
-import 'package:chatapp/models/user_model.dart';
+import 'package:chatapp/models/auth_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
 class AuthUserServices {
-  late UserModel userModel;
+  late AuthModel authModel;
   registrationUser({
     required name,
     required email,
@@ -43,13 +43,13 @@ class AuthUserServices {
       if (response.statusCode == 200) {
         final String token = response.data['token'];
         Map<String, dynamic> payload = Jwt.parseJwt(token);
-        userModel = UserModel(
+        authModel = AuthModel(
           name: payload['name'],
           email: payload['email'],
           gender: payload['gender'],
           token: token,
         );
-        return userModel;
+        return authModel;
       }
       throw Exception('Server error');
     } on DioException catch (e) {
