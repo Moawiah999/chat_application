@@ -1,9 +1,11 @@
 import 'package:chatapp/models/auth_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
 class AuthUserServices {
+  final _storage = const FlutterSecureStorage();
   late AuthModel authModel;
   registrationUser({
     required name,
@@ -42,12 +44,13 @@ class AuthUserServices {
       );
       if (response.statusCode == 200) {
         final String token = response.data['token'];
+        await _storage.write(key: 'token', value: token);
         Map<String, dynamic> payload = Jwt.parseJwt(token);
         authModel = AuthModel(
           name: payload['name'],
           email: payload['email'],
           gender: payload['gender'],
-          token: token,
+         
         );
         return authModel;
       }
