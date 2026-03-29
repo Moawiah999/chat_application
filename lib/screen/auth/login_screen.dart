@@ -6,6 +6,7 @@ import 'package:chatapp/screen/home/home_screen.dart';
 import 'package:chatapp/widget/auth_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -18,53 +19,49 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF0F5F8),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            alignment: Alignment.center,
-
+          child: Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 80),
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 80.h),
               child: Card(
                 shadowColor: Colors.white,
                 elevation: 10,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40),
+                  borderRadius: BorderRadius.circular(40.r),
                 ),
                 color: Color(0xffF0F3F7),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
                   child: Form(
                     key: formKey,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        SizedBox(height: 10),
+                        SizedBox(height: 10.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
                               Icons.chat_bubble_outline_sharp,
                               color: Color(0xFF00BFFF),
-                              size: 30,
+                              size: 65.sp,
                             ),
-                            SizedBox(width: 5),
+                            SizedBox(width: 5.w),
                             Text(
                               'Chating',
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                fontSize: 22,
+                                fontSize: 49.sp,
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(height: 100),
+                        SizedBox(height: 60.h),
                         AuthTextField(
                           keyboardType: TextInputType.emailAddress,
                           fieldName: 'Email',
@@ -72,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           hintText: 'Email',
                           icons: Icon(Icons.email, color: Color(0xFF00BFFF)),
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 10.h),
                         AuthTextField(
                           obscureText: true,
                           fieldName: 'Password',
@@ -80,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           hintText: 'Password',
                           icons: Icon(Icons.lock, color: Color(0xFF00BFFF)),
                         ),
-                        SizedBox(height: 30),
+                        SizedBox(height: 25.h),
                         BlocConsumer<AuthUserCubit, AuthState>(
                           listener: (context, state) {
                             if (state is AuthSuccessfulLogin) {
@@ -111,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Color(0xff0080E3),
-                                  padding: EdgeInsets.symmetric(vertical: 15),
+                                  padding: EdgeInsets.symmetric(vertical: 8.h),
                                 ),
                                 onPressed: () {
                                   if (formKey.currentState!.validate()) {
@@ -125,25 +122,25 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                                 child: state is AuthLoading
                                     ? SizedBox(
-                                        height: 20,
-                                        width: 20,
+                                        height: 20.h,
+                                        width: 20.w,
                                         child: CircularProgressIndicator(
                                           color: Colors.white,
-                                          strokeWidth: 2,
+                                          strokeWidth: 2.r,
                                         ),
                                       )
                                     : Text(
                                         'Login',
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 16,
+                                          fontSize: 35.sp,
                                         ),
                                       ),
                               ),
                             );
                           },
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 10.h),
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(
@@ -161,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(height: 7.h),
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(
@@ -179,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(height: 10.h),
                       ],
                     ),
                   ),

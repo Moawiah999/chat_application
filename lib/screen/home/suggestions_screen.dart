@@ -14,7 +14,6 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> {
   @override
   void initState() {
     final users = context.read<UsersCubit>();
-    // context.read<UsersCubit>().getAllUsers();
     if (users.users.isEmpty) {
       users.getAllUsers();
     }
@@ -30,11 +29,8 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> {
             return Center(child: CircularProgressIndicator());
           } else if (state is UsersSuccessful) {
             final users = state.users;
-            return ListView.separated(
-              separatorBuilder: (context, index) {
-                return SizedBox(height: 5);
-              },
-              itemCount: users.length,
+            return ListView.builder(
+              itemCount: 10,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
