@@ -4,6 +4,7 @@ import 'package:chatapp/screen/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -21,9 +22,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => UsersCubit()),
       ],
 
-      child: MaterialApp(
-        home: LoginScreen(),
-        debugShowCheckedModeBanner: false,
+      child: ScreenUtilInit(
+        designSize: Size(912, 432),
+        child: MaterialApp(
+          home: LoginScreen(),
+          debugShowCheckedModeBanner: false,
+          // showPerformanceOverlay: true,
+        ),
       ),
     );
   }
