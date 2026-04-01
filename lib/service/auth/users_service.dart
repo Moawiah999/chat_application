@@ -7,8 +7,11 @@ class UsersService {
   final _storage = const FlutterSecureStorage();
   late UserModel userModel;
   Future<List<UserModel>> getAllUsersService() async {
-    final response = await Dio().get('${dotenv.env['Base_URL']}users/');
-
+    String? token = await _storage.read(key: 'token');
+    final response = await Dio().get(
+      '${dotenv.env['Base_URL']}users/',
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
     final users = (response.data as List)
         .map((user) => UserModel.fromJson(user))
         .toList();

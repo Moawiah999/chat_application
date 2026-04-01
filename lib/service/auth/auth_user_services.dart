@@ -50,7 +50,6 @@ class AuthUserServices {
           name: payload['name'],
           email: payload['email'],
           gender: payload['gender'],
-         
         );
         return authModel;
       }

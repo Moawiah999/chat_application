@@ -30,7 +30,7 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> {
           } else if (state is UsersSuccessful) {
             final users = state.users;
             return ListView.builder(
-              itemCount: 10,
+              itemCount: users.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
