@@ -1,4 +1,5 @@
 import 'package:chatapp/cubits/auth_cubits/auth_cubits.dart';
+import 'package:chatapp/cubits/friend_requests/friend_requests_cubit.dart';
 import 'package:chatapp/cubits/users_cubit/users_cubit.dart';
 import 'package:chatapp/screen/auth/login_screen.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => AuthUserCubit()),
         BlocProvider(create: (context) => UsersCubit()),
+        BlocProvider(create: (context) => FriendRequestsCubit()),
       ],
 
       child: ScreenUtilInit(

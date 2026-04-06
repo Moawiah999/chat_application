@@ -1,6 +1,6 @@
 import 'package:chatapp/screen/home/chat_screen.dart';
 import 'package:chatapp/screen/home/friends_screen.dart';
-import 'package:chatapp/screen/home/message_requests.dart';
+import 'package:chatapp/screen/home/friend_requests.dart';
 import 'package:chatapp/screen/home/profile_screen.dart';
 import 'package:chatapp/screen/home/suggestions_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ChatScreen(),
     FriendsScreen(),
     SuggestionsScreen(),
-    MessageRequests(),
+    FriendRequests(),
     ProfileScreen(),
   ];
   final List<String> _titles = [
