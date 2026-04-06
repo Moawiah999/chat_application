@@ -1,6 +1,5 @@
 import 'package:chatapp/cubits/users_cubit/users_cubit.dart';
 import 'package:chatapp/cubits/users_cubit/users_cubit_state.dart';
-import 'package:chatapp/models/user_model.dart';
 import 'package:chatapp/widget/user_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,7 +37,7 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> {
               },
             );
           } else {
-            return Center(child: Text("حدث خطأ:"));
+            return Center(child: Text("Something went wrong"));
           }
         },
       ),
