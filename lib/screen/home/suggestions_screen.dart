@@ -1,5 +1,7 @@
 import 'package:chatapp/cubits/users_cubit/users_cubit.dart';
 import 'package:chatapp/cubits/users_cubit/users_cubit_state.dart';
+import 'package:chatapp/models/user_model.dart';
+import 'package:chatapp/widget/user_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,21 +34,7 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> {
             return ListView.builder(
               itemCount: users.length,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    child: ListTile(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 8),
-                      title: Text(users[index].name),
-                      subtitle: Text(users[index].email),
-                      leading: Icon(Icons.person),
-                      trailing: IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.add),
-                      ),
-                    ),
-                  ),
-                );
+                return UserTile(users: users[index]);
               },
             );
           } else {
