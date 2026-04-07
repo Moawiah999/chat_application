@@ -2,10 +2,10 @@ import 'package:chatapp/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 class UserTile extends StatelessWidget {
-  const UserTile({super.key, required this.users});
+  const UserTile({super.key, required this.users, required this.trailing});
 
   final UserModel users;
-
+  final Widget trailing;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,7 +16,7 @@ class UserTile extends StatelessWidget {
           title: Text(users.name),
           subtitle: Text(users.email),
           leading: Icon(Icons.person),
-          trailing: IconButton(onPressed: () {}, icon: Icon(Icons.add)),
+          trailing: trailing,
         ),
       ),
     );

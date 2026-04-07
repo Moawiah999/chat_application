@@ -33,7 +33,7 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> {
             return ListView.builder(
               itemCount: users.length,
               itemBuilder: (context, index) {
-                return UserTile(users: users[index]);
+                return UserTile(users: users[index], trailing: Icon(Icons.add));
               },
             );
           } else {
