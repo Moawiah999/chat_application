@@ -34,7 +34,17 @@ class _FriendRequestsState extends State<FriendRequests> {
             return ListView.builder(
               itemCount: friends.length,
               itemBuilder: (context, index) {
-                return UserTile(users: friends[index]);
+                return UserTile(
+                  users: friends[index],
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.check, color: Colors.green, size: 30),
+                      SizedBox(width: 10),
+                      Icon(Icons.close, color: Colors.red, size: 30),
+                    ],
+                  ),
+                );
               },
             );
           } else {
