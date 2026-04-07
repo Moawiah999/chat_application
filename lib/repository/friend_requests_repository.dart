@@ -5,4 +5,11 @@ class FriendRequestsRepository {
     final result = await FriendRequestsService().getFriendRequests();
     return result;
   }
+
+  Future<bool> rejectFriendRequest({required int friendId}) async {
+    final result = await FriendRequestsService().rejectFriendRequest(
+      friendId: friendId,
+    );
+    return result;
+  }
 }

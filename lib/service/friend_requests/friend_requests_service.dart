@@ -20,4 +20,22 @@ class FriendRequestsService {
       throw Exception('Failed to load friend requests');
     }
   }
+
+  Future<bool> rejectFriendRequest({required int friendId}) async {
+    try {
+      String? token = await _storage.read(key: 'token');
+      Response response = await Dio().delete(
+        '${dotenv.env['Base_URL']}friends/reject-requests',
+        data: {'friend_id': friendId},
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
 }

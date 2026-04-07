@@ -39,9 +39,23 @@ class _FriendRequestsState extends State<FriendRequests> {
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.check, color: Colors.green, size: 30),
+                      IconButton(
+                        padding: EdgeInsets.all(0),
+                        onPressed: () {},
+                        icon: Icon(Icons.check, color: Colors.green, size: 30),
+                      ),
+                      IconButton(
+                        padding: EdgeInsets.all(0),
+                        onPressed: () {
+                          context
+                              .read<FriendRequestsCubit>()
+                              .rejectFriendRequest(
+                                friendId: friends[index].id,
+                              );
+                        },
+                        icon: Icon(Icons.close, color: Colors.red, size: 30),
+                      ),
                       SizedBox(width: 10),
-                      Icon(Icons.close, color: Colors.red, size: 30),
                     ],
                   ),
                 );

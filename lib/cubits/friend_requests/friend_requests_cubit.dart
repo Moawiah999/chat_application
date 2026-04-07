@@ -16,4 +16,18 @@ class FriendRequestsCubit extends Cubit<FriendState> {
       emit(FriendFailed());
     }
   }
+
+  rejectFriendRequest({required int friendId}) async {
+    try {
+      final isDeleted = await FriendRequestsRepository().rejectFriendRequest(
+        friendId: friendId,
+      );
+      if (isDeleted) {
+        friends.removeWhere((user) => user.id == friendId);
+        emit(FriendSuccessful(friends: friends));
+      }
+    } catch (e) {
+      emit(FriendFailed());
+    }
+  }
 }
