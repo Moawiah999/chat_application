@@ -1,9 +1,12 @@
+import 'package:chatapp/cubits/friend_requests/friend_requests_cubit.dart';
+import 'package:chatapp/cubits/friend_requests/friend_requests_state.dart';
 import 'package:chatapp/screen/home/chat_screen.dart';
 import 'package:chatapp/screen/home/friends_screen.dart';
 import 'package:chatapp/screen/home/friend_requests.dart';
 import 'package:chatapp/screen/home/profile_screen.dart';
 import 'package:chatapp/screen/home/suggestions_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -62,7 +65,28 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Suggestions',
           ),
           NavigationDestination(
-            icon: Icon(Icons.notifications_active, color: Color(0xFF00BFFF)),
+            icon: BlocBuilder<FriendRequestsCubit, FriendState>(
+              builder: (context, state) {
+                int count = 0;
+                if (state is FriendSuccessful) {
+                  count = state.friends.length;
+                }
+                if (count == 0) {
+                  return const Icon(
+                    Icons.notifications_active,
+                    color: Color(0xFF00BFFF),
+                  );
+                }
+                return Badge(
+                  label: Text('$count'),
+                  backgroundColor: Colors.red,
+                  child: const Icon(
+                    Icons.notifications_active,
+                    color: Color(0xFF00BFFF),
+                  ),
+                );
+              },
+            ),
             label: 'Requests',
           ),
           NavigationDestination(
