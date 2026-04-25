@@ -1,3 +1,5 @@
+import 'package:chatapp/cubits/friend_requests/friend_requests_cubit.dart';
+import 'package:chatapp/cubits/friend_requests/friend_requests_state.dart';
 import 'package:chatapp/cubits/users_cubit/users_cubit.dart';
 import 'package:chatapp/cubits/users_cubit/users_cubit_state.dart';
 import 'package:chatapp/widget/user_tile.dart';
@@ -33,7 +35,28 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> {
             return ListView.builder(
               itemCount: users.length,
               itemBuilder: (context, index) {
-                return UserTile(users: users[index], trailing: Icon(Icons.add));
+                return UserTile(
+                  users: users[index],
+                  trailing: BlocBuilder<FriendRequestsCubit, FriendState>(
+                    builder: (context, state) {
+                      if (state is AddFriendSuccess &&
+                          state.friendId == users[index].id) {
+                        return const Icon(
+                          Icons.pending_actions,
+                          color: Colors.orange,
+                        );
+                      }
+                      return IconButton(
+                        onPressed: () {
+                          context.read<FriendRequestsCubit>().addFriends(
+                            friendId: users[index].id,
+                          );
+                        },
+                        icon: const Icon(Icons.add),
+                      );
+                    },
+                  ),
+                );
               },
             );
           } else {

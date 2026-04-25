@@ -30,4 +30,19 @@ class FriendRequestsCubit extends Cubit<FriendState> {
       emit(FriendFailed());
     }
   }
+
+  addFriends({required friendId}) async {
+    try {
+      final isSuccess = await FriendRequestsRepository().addFriend(
+        friendId: friendId,
+      );
+      if (isSuccess) {
+        emit(AddFriendSuccess(friendId: friendId));
+      } else {
+        emit(FriendFailed());
+      }
+    } catch (e) {
+      emit(FriendFailed());
+    }
+  }
 }

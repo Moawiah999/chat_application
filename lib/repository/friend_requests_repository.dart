@@ -12,4 +12,14 @@ class FriendRequestsRepository {
     );
     return result;
   }
+  Future<bool> addFriend({required friendId}) async {
+    try {
+      final bool isSuccess = await FriendRequestsService().addFriends(
+        friendId: friendId,
+      );
+      return isSuccess;
+    } catch (e) {
+      return false;
+    }
+  }
 }

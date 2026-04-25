@@ -38,4 +38,22 @@ class FriendRequestsService {
       return false;
     }
   }
+
+  Future<bool> addFriends({required friendId}) async {
+    try {
+      String? token = await _storage.read(key: 'token');
+      Response response = await Dio().post(
+        '${dotenv.env['Base_URL']}friends/add-friend',
+        data: {'friend_id': friendId},
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
 }

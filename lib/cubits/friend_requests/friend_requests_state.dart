@@ -12,3 +12,8 @@ class FriendSuccessful extends FriendState {
 }
 
 class FriendFailed extends FriendState {}
+
+class AddFriendSuccess extends FriendState {
+  final String friendId;
+  AddFriendSuccess({required this.friendId});
+}
