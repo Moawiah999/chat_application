@@ -26,7 +26,7 @@ class FriendRequestsService {
       String? token = await _storage.read(key: 'token');
       Response response = await Dio().delete(
         '${dotenv.env['Base_URL']}friends/reject-requests',
-        data: {'friend_id': friendId},
+        data: {'receiver_id': friendId},
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
       if (response.statusCode == 200) {
@@ -44,7 +44,7 @@ class FriendRequestsService {
       String? token = await _storage.read(key: 'token');
       Response response = await Dio().post(
         '${dotenv.env['Base_URL']}friends/add-friend',
-        data: {'friend_id': friendId},
+        data: {'receiver_id': friendId},
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
       if (response.statusCode == 200) {
